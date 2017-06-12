@@ -1,0 +1,4 @@
+_routine:
+		  loadc A0 123
+		  storei A0 IO
+		  return

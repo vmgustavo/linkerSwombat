@@ -1,3 +1,5 @@
+.extern _routine
+
 		  loadi A0 _tst0
 		  storei A0 _tst1
 		  loadc A1 7
@@ -12,7 +14,7 @@
 		  divide A3 A4
 		  jump _skip_out0
 		  storei A3 IO
-_skip_out0:	
+_skip_out0:
 		  subtract A3 A3
 		  jmpz A3 _skip_out1
 		  storei A3 IO
@@ -34,12 +36,6 @@ _skip_out2:
 		  negate A6 A6
 		  call _routine
 		  exit
-				
-_routine:
-		  loadc A0 123
-		  storei A0 IO
-		  return
-				
 
 _tst0:	 .data 2 5
 _tst1:	 .data 2 0
