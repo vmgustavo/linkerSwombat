@@ -1,0 +1,83 @@
+DEPTH = 256;
+WIDTH = 8;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = BIN;
+CONTENT
+BEGIN
+
+00        :  00001000;              -- loadi A0 IO ; get A | loadi A0_tst0
+01        :  01001000;              -- 
+02        :  00010000;              -- loadi A1 IO ; get B | storei A0_tst1
+03        :  01001010;              -- 
+04        :  01101001;              -- move A6 A0 ; copy A | loadc A1 7
+05        :  00000111;              -- 
+06        :  01101010;              -- move A7 A1 ; copy B | loadc A2 9
+07        :  00001001;              -- 
+08        :  00011001;              -- subtract A6 A7 ; A6 <- A - B | add A1 A2
+09        :  01000000;              -- 
+0A        :  00100001;              -- jmpn A6_call_add ; jump to add if A < B | subtract A1 A2
+0B        :  01000000;              -- 
+0C        :  01110011;              -- call _sub ; call sub if A >= B | clear A3
+0D        :  00000000;              -- 
+0E        :  01110100;              -- jump _exit | clear A4
+0F        :  00000000;              -- 
+10        :  10010011;              -- _call_add: call _add | addi A3 4
+11        :  00000100;              -- 
+12        :  10010100;              -- _exit: exit | addi A4 2
+13        :  00000010;              -- 
+14        :  00101011;              -- push A7 | multiply A3 A4
+15        :  10000000;              -- 
+16        :  00110011;              -- push A6 | divide A3 A4
+17        :  10000000;              -- 
+18        :  00111000;              -- move A7 A0 | jump _skip_out0
+19        :  00011100;              -- 
+1A        :  00010011;              -- move A6 A1 | storei A3 IO
+1B        :  11111110;              -- 
+1C        :  00100011;              -- add A7 A6 | subtract A3 A3
+1D        :  01100000;              -- 
+1E        :  01000011;              -- storei A7 IO | jmpz A3_skip_out1
+1F        :  00100010;              -- 
+20        :  00010011;              -- pop A6 | storei A3 IO
+21        :  11111110;              -- 
+22        :  01101101;              -- pop A7 | loadc A5 10
+23        :  00001010;              -- 
+24        :  01101110;              -- return | loadc A6 5
+25        :  00000101;              -- 
+26        :  00100110;              -- push A7 | subtract A6 A5
+27        :  10100000;              -- 
+28        :  01001110;              -- push A6 | jmpn A6_skip_out2
+29        :  00101100;              -- 
+2A        :  00010110;              -- move A7 A0 | storei A6 IO
+2B        :  11111110;              -- 
+2C        :  01110110;              -- move A6 A1 | clear A6
+2D        :  00000000;              -- 
+2E        :  00001111;              -- subtract A7 A6 | loadi A7_addr
+2F        :  01001100;              -- 
+30        :  01100111;              -- storei A7 IO | store A7 A7
+31        :  11100000;              -- 
+32        :  01011110;              -- pop A6 | load A6 A7
+33        :  11100000;              -- 
+34        :  10000111;              -- pop A7 | push A7
+35        :  00000000;              -- 
+36        :  01110111;              -- return | clear A7
+37        :  00000000;              -- 
+38        :  10001111;              -- pop A7
+39        :  00000000;              -- 
+3A        :  01010111;              -- move A7 A6
+3B        :  11000000;              -- 
+3C        :  01111110;              -- negate A6 A6
+3D        :  11000000;              -- 
+3E        :  10011000;              -- call _routine
+3F        :  01000010;              -- 
+[40..41]:  00000000;              -- 
+42        :  01101000;              -- loadc A0 123
+43        :  01111011;              -- 
+44        :  00010000;              -- storei A0 IO
+45        :  11111110;              -- 
+46        :  10100000;              -- return
+[47..48]:  00000000;              -- _tst0: .data 2 5
+49        :  00000101;              -- 
+[4A..4C]:  00000000;              -- _addr: .data 2 100
+4D        :  01100100;              -- 
+[4E..FF]:  00000000;              -- 
+END;

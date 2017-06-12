@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+
+<fx:root type="javafx.scene.control.ToolBar" id="ToolBar" maxHeight="-Infinity"
+         maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0"
+         styleClass="debugToolBar" xmlns:fx="http://javafx.com/fxml/1"
+         xmlns="http://javafx.com/javafx/8">
+    <items>
+        <Button fx:id="goButton" mnemonicParsing="true" onAction="#onGoButtonClick"
+                text="_Go"/>
+        <Separator orientation="VERTICAL" prefHeight="80.0"/>
+        <Button fx:id="stepByInstrButton" mnemonicParsing="true"
+                onAction="#onStepByInstrClick" text="_Step by Instr"/>
+        <Separator orientation="VERTICAL" prefHeight="80.0"/>
+        <Button fx:id="stepByMicroButton" mnemonicParsing="true"
+                onAction="#onStepByMicroClick" text="Ste_p by Micro"/>
+        <Separator orientation="VERTICAL" prefHeight="80.0"/>
+        <Button fx:id="backupMachineInstrButton" mnemonicParsing="true"
+                onAction="#onBackupMachineInstrClick" text="_Backup one Instr"/>
+        <Separator orientation="VERTICAL" prefHeight="80.0"/>
+        <Button fx:id="backupMicroInstrButton" mnemonicParsing="true"
+                onAction="#onBackupMicroInstrClick" text="Bac_kup one Micro"/>
+        <Separator orientation="VERTICAL" prefHeight="80.0"/>
+        <Button fx:id="startOverButton" mnemonicParsing="true"
+                onAction="#onStartOverClick" text="Start Ove_r"/>
+        <Separator orientation="VERTICAL" prefHeight="80.0"/>
+        <Label fx:id="currentInstrLabel" text="Fetch squence:"/>
+        <ListView fx:id="currentMicrosList" editable="true" prefWidth="200.0"/>
+    </items>
+    <stylesheets>
+        <URL value="@../css/Dialogs.css"/>
+    </stylesheets>
+</fx:root>
