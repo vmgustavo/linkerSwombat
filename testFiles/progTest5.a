@@ -8,7 +8,7 @@ _op5:
     loadi A1 _c
     add A0 A1
 
-    loadi A1 _tres
+    loadc A1 3
     divide A0 A1
 
     storei A0 IO

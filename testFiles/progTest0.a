@@ -1,13 +1,3 @@
-; progama le quatro numeros OP, A, B, C
-; OP - operacao
-; A, B, C - operandos
-; OP == 1 - maior numero
-; OP == 2 - menor numero
-; OP == 3 - soma
-; OP == 4 - produto
-; OP == 5 - media
-; OP diferentes - exit
-
 .extern _op1
 .extern _op2
 .extern _op3
@@ -24,27 +14,27 @@
     storei A2 _b
     storei A3 _c
 
-    loadi A6 _um
+	loadc A6 1
     loadi A7 _op
     subtract A6 A7
     jmpz A6 _call_op1
 
-    loadi A6 _dois
+	loadc A6 1
     loadi A7 _op
     subtract A6 A7
     jmpz A6 _call_op2
 
-    loadi A6 _tres
+	loadc A6 3
     loadi A7 _op
     subtract A6 A7
     jmpz A6 _call_op3
 
-    loadi A6 _quatro
+	loadc A6 4
     loadi A7 _op
     subtract A6 A7
     jmpz A6 _call_op4
 
-    loadi A6 _cinco
+	loadc A6 5
     loadi A7 _op
     subtract A6 A7
     jmpz A6 _call_op5
@@ -69,12 +59,6 @@ _call_op5:
 
 _end:
     exit
-
-_um:      .data 2 1
-_dois:    .data 2 2
-_tres:    .data 2 3
-_quatro:  .data 2 4
-_cinco:   .data 2 5
 
 _op:      .data 2 0
 _a:       .data 2 0
