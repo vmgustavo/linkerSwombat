@@ -1,0 +1,13 @@
+_op3:
+
+    clear A0
+    loadi A1 _a
+    add A0 A1
+    loadi A1 _b
+    add A0 A1
+    loadi A1 _c
+    add A0 A1
+
+    storei A0 IO
+
+return
