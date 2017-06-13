@@ -15,10 +15,8 @@ int main(int argc, char* argv[])
     cerr<<argv[0]<<" [input file name] [output file name]"<<endl;
     return 1;
   }
-  string output_filename = argv[2];
-  output_filename += ".mif";
   freopen(argv[1], "r", stdin);
-  freopen(output_filename.c_str(), "w", stdout);
+  freopen(argv[2], "w", stdout);
   Swombat OurMachine;
   OurMachine.get_started();
   vector< pair< int, string > > label_pendencies, data_pendencies;

@@ -70,12 +70,15 @@ void Swombat::solve_pendencies(vector< pair< int, string> > &label_pendencies, v
 {
   for(auto pend : label_pendencies)
   {
+    if(!islabel(pend.second))
+    {
+      cout<<pend.first + 1<<" needs "<<pend.second<<endl;
+    }
     memory[pend.first+1] += get_addr_from_label(pend.second);
   }
 
   for(auto pend : data_pendencies)
   {
-    cerr<<"instr = "<<pend.first<<" need "<<pend.second<<endl;
     memory[pend.first+1] += get_addr_from_data(pend.second);
   }
 }
@@ -93,20 +96,26 @@ void Swombat::allocate(string &label, int num_bytes, int value)
 
 void Swombat::print()
 {
-  cout<<"DEPTH = "<<mem_size<<";"<<endl;
+  /*cout<<"DEPTH = "<<mem_size<<";"<<endl;
   cout<<"WIDTH = 8;"<<endl;
   cout<<"ADDRESS_RADIX = HEX;"<<endl;
   cout<<"DATA_RADIX = BIN;"<<endl;
-  cout<<"CONTENT"<<endl<<"BEGIN"<<endl<<endl;
+  cout<<"CONTENT"<<endl<<"BEGIN"<<endl<<endl;*/
+  cout<<"instruction size = "<<next_instruction<<endl;
+  cout<<"data size = "<<mem_size - 2 - last_free<<endl;
   for(int i = 0;i < mem_size;i++)
   {
     int v = memory[i];
-    cout<<to_hex(i)<<" : ";
-    bitset<8> to_print(v);
-    cout<<to_print<<";";
-    cout<<" --"<<endl;
+    //cout<<to_hex(i)<<" : ";
+    //bitset<8> to_print(v);
+    cout<<v<<endl;
+    //cout<<" --"<<endl;
   }
-  cout<<"END;"<<endl;
+  //cout<<"END;"<<endl;
+  for(auto p : label_to_pos)
+  {
+    cout<<p.first<<" "<<p.second<<endl;
+  }
 }
 
 void assemble(Swombat &OurMachine, string &label, string &instr, vector< pair< int, string > > &label_pendencies, vector< pair< int, string > > &data_pendencies)
@@ -248,6 +257,7 @@ void assemble(Swombat &OurMachine, string &label, string &instr, vector< pair< i
     read_comments();
     return;
   }
+  else if(instr == ".extern") return;
   else cerr<<instr<<" nao eh uma instrucao valida.\n";
   read_comments();
   OurMachine.store_instruction(label,graphic);
