@@ -8,7 +8,7 @@
     subtract A6 A7
     jmpz A6 _call_op1
 
-	loadc A6 1
+	loadc A6 2
 	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op2
