@@ -1,16 +1,17 @@
 #!/bin/bash
 
 CURR_DIR="$(pwd)"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
+SCRIPT_DIR="$(pwd)"
+CURR_DIR=$(printf %q "$CURR_DIR")
+SCRIPT_DIR=$(printf %q "$SCRIPT_DIR")
 
 # Configurable parameters
-TESTS_PATH="${SCRIPT_DIR}/testes"
-WORK_DIR="LucasRenan_GustavoMaia"
-TEST_OUT_PATH="my_tests"
+TESTS_PATH="${SCRIPT_DIR}/testFiles"
+WORK_DIR="../${SCRIPT_DIR}"
+TEST_OUT_PATH="${TESTS_PATH}"
 ASB_WORK_DIR="assembler"
 LNK_WORK_DIR="linker"
-DEBUG=1 # 0/1
+DEBUG=0 # 0/1
 
 
 function echo_dbg() {
@@ -26,14 +27,14 @@ function go_compile_back() {
     curr_pth="$(pwd)"
     echo "Going to $pth"
     cd "$pth"
-    echo make
+    echo_dbg make
     echo "Going back to $curr_pth"
     cd "$curr_pth"
 }
 
 # To make relative paths work
-echo "Going to ${SCRIPT_DIR}/${WORK_DIR}"
-cd "${SCRIPT_DIR}/${WORK_DIR}"
+# echo "Going to ${SCRIPT_DIR}/${WORK_DIR}"
+# cd "${SCRIPT_DIR}/${WORK_DIR}"
 
 # Compile the executables
 echo "Compiling Assembler"
@@ -43,12 +44,10 @@ go_compile_back $LNK_WORK_DIR
 
 # Run the tests
 echo "Running tests"
-echo_dbg mkdir -p "${TEST_OUT_PATH}"
 for tst in "${TESTS_PATH}/"*/; do
     tstname="${tst%*/}"
     tstname="${tstname##*/}"
     echo -e "\\t Test: ${tstname}"
-    echo_dbg mkdir -p "${TEST_OUT_PATH}/${tstname}"
     for file in "${TESTS_PATH}/${tstname}/"*.a; do
         filename=$(basename "${file}")
         echo -e "\\t\\t $filename"

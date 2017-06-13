@@ -13,6 +13,11 @@ int main(int argc, char* argv[])
   {
     cerr<<"Usage:"<<endl;
     cerr<<argv[0]<<" [input file name] [output file name]"<<endl;
+    cerr<<"You used : "<<argc<<" arguments."<<endl;
+    for(int i = 0; i < argc; i++)
+    {
+      cerr<<argv[i]<<endl;
+    }
     return 1;
   }
   freopen(argv[1], "r", stdin);
