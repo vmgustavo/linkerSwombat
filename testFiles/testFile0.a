@@ -1,0 +1,42 @@
+		  loadi A0 IO			; get A
+		  loadi A1 IO			; get B
+	
+		  move A6 A0			; copy A
+		  move A7 A1			; copy B
+		  subtract A6 A7		; A6 <- A - B
+		  jmpn A6 _call_add	        ; jump to add if A < B
+		  call _sub			; call sub if A >= B
+		  jump _exit
+_call_add:	  call _add
+
+_exit:	  exit
+			
+_add:
+		  push A7
+		  push A6
+			
+		  move A7 A0
+		  move A6 A1
+			
+		  add A7 A6
+			
+		  storei A7 IO
+			
+		  pop A6
+		  pop A7
+		  return
+			
+_sub:
+		  push A7
+		  push A6
+			
+		  move A7 A0
+		  move A6 A1
+			
+		  subtract A7 A6
+			
+		  storei A7 IO
+			
+		  pop A6
+		  pop A7
+		  return

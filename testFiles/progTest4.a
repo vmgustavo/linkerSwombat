@@ -1,0 +1,11 @@
+_op4:
+
+    loadi A0 _a
+    loadi A1 _b
+    multiply A0 A1
+    loadi A1 _c
+    multiply A0 A1
+
+    storei A0 IO
+
+return
