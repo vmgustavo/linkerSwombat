@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Configurable parameters
 TESTS_PATH="${SCRIPT_DIR}/testes"
-WORK_DIR="aluno1_aluno2"
+WORK_DIR="LucasRenan_GustavoMaia"
 TEST_OUT_PATH="my_tests"
 ASB_WORK_DIR="assembler"
 LNK_WORK_DIR="linker"

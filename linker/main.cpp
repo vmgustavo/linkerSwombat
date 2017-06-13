@@ -9,11 +9,13 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-  freopen(argv[1],"w",stdout);
+  string output_file = argv[1];
+  output_file += ".mif";
+  freopen(output_file.c_str(),"w",stdout);
   
   Linker linker;
   linker.get_started();
-  
+   
   for(int i = 2;i < argc;i++)
   {
     freopen(argv[i],"r",stdin);
