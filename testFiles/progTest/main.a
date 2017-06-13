@@ -9,8 +9,6 @@
     loadi A2 IO ; get B
     loadi A3 IO ; get C
 
-    storei A0 _op
-
 	loadc A6 1
     move A7 A0
     subtract A6 A7
