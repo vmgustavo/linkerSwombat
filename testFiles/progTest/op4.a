@@ -1,9 +1,9 @@
 _op4:
 
-    loadc A7 A1
-    loadc A6 A2
+    move A7 A1
+    move A6 A2
     multiply A7 A6
-    loadc A6 A3
+    move A6 A3
     multiply A7 A6
 
     storei A7 IO
