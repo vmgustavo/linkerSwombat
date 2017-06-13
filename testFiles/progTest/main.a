@@ -10,32 +10,29 @@
     loadi A3 IO ; get C
 
     storei A0 _op
-    storei A1 _a
-    storei A2 _b
-    storei A3 _c
 
 	loadc A6 1
-    loadi A7 _op
+    move A7 A0
     subtract A6 A7
     jmpz A6 _call_op1
 
-	loadc A6 1
-    loadi A7 _op
+	loadc A6 2
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op2
 
 	loadc A6 3
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op3
 
 	loadc A6 4
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op4
 
 	loadc A6 5
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op5
 
@@ -59,8 +56,3 @@ _call_op5:
 
 _end:
     exit
-
-_op:      .data 2 0
-_a:       .data 2 0
-_b:       .data 2 0
-_c:       .data 2 0

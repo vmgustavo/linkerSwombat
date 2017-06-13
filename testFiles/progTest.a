@@ -3,33 +3,28 @@
     loadi A2 IO ; get B
     loadi A3 IO ; get C
 
-    storei A0 _op
-    storei A1 _a
-    storei A2 _b
-    storei A3 _c
-
     loadc A6 1
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op1
 
-	loadc A6 1
-    loadi A7 _op
+	loadc A6 2
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op2
 
     loadc A6 3
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op3
 
     loadc A6 4
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op4
 
     loadc A6 5
-    loadi A7 _op
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op5
 
@@ -56,36 +51,36 @@ _end:
 
 _op1:
 
-    loadi A0 _a
-    loadi A1 _b
-    subtract A0 A1
-    jmpn A0 _bMAa
-    loadi A0 _a     ; aMAb
-    loadi A1 _c
-    subtract A0 A1
-    jmpn A0 _printC1    ; cMAa
+    loadc A7 A1
+    loadc A6 A2
+    subtract A7 A6
+    jmpn A7 _bMAa
+    loadc A7 A1     ; aMAb
+    loadc A6 A2
+    subtract A7 A6
+    jmpn A7 _printC1    ; cMAa
     jump _printA1   ; aMAc
 
 _bMAa:
-    loadi A0 _b
-    loadi A1 _c
-    subtract A0 A1
-    jmpn A0 _printC1    ; cMAb
+    loadc A7 A2
+    loadc A6 A3
+    subtract A7 A6
+    jmpn A7 _printC1    ; cMAb
     jump _printB1   ; bMAc
 
 _printA1:
-    loadi A0 _a
-    storei A0 IO
+    loadc A7 A1
+    storei A7 IO
     jump _endOp1
 
 _printB1:
-    loadi A0 _b
-    storei A0 IO
+    loadc A7 A2
+    storei A7 IO
     jump _endOp1
 
 _printC1:
-    loadi A0 _c
-    storei A0 IO
+    loadc A7 A3
+    storei A7 IO
     jump _endOp1
 
 _endOp1:
@@ -94,36 +89,36 @@ return
 
 _op2:
 
-    loadi A0 _a
-    loadi A1 _b
-    subtract A0 A1
-    jmpn A0 _aMEb
-    loadi A0 _b ; bMEa
-    loadi A1 _c
-    subtract A0 A1
-    jmpn A0 _printB2    ; bMEc
+    loadc A7 A1
+    loadc A6 A2
+    subtract A7 A6
+    jmpn A7 _aMEb
+    loadc A7 A2 ; bMEa
+    loadc A6 A3
+    subtract A7 A6
+    jmpn A7 _printB2    ; bMEc
     jump _printC2   ; cMEb
 
 _aMEb:
-    loadi A0 _a
-    loadi A1 _c
-    subtract A0 A1
-    jmpn A0 _printA2    ; aMEc
+    loadc A7 A1
+    loadc A6 A3
+    subtract A7 A6
+    jmpn A7 _printA2    ; aMEc
     jump _printC2   ; cMEa
 
 _printA2:
-    loadi A0 _a
-    storei A0 IO
+    loadc A7 A1
+    storei A7 IO
     jump _endOp2
 
 _printB2:
-    loadi A0 _b
-    storei A0 IO
+    loadc A7 A2
+    storei A7 IO
     jump _endOp2
 
 _printC2:
-    loadi A0 _c
-    storei A0 IO
+    loadc A7 A3
+    storei A7 IO
     jump _endOp2
 
 _endOp2:
@@ -132,48 +127,43 @@ return
 
 _op3:
 
-    clear A0
-    loadi A1 _a
-    add A0 A1
-    loadi A1 _b
-    add A0 A1
-    loadi A1 _c
-    add A0 A1
+    clear A7
+    loadc A6 A1
+    add A7 A6
+    loadc A6 A2
+    add A7 A6
+    loadc A6 A3
+    add A7 A6
 
-	storei A0 IO
+	storei A7 IO
 
 return
 
 _op4:
 
-    loadi A0 _a
-    loadi A1 _b
-    multiply A0 A1
-    loadi A1 _c
-    multiply A0 A1
+    loadc A7 A1
+    loadc A6 A2
+    multiply A7 A6
+    loadc A6 A3
+    multiply A7 A6
 
-    storei A0 IO
+    storei A7 IO
 
 return
 
 _op5:
 
-    clear A0
-    loadi A1 _a
-    add A0 A1
-    loadi A1 _b
-    add A0 A1
-    loadi A1 _c
-    add A0 A1
+    clear A7
+    loadc A6 A1
+    add A7 A6
+    loadc A6 A2
+    add A7 A6
+    loadc A6 A3
+    add A7 A6
 
-    loadc A1 3
-    divide A0 A1
+    loadc A6 3
+    divide A7 A6
 
-    storei A0 IO
+    storei A7 IO
 
 return
-
-_op:      .data 2 0
-_a:       .data 2 0
-_b:       .data 2 0
-_c:       .data 2 0
