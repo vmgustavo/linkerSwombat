@@ -1,11 +1,11 @@
 _op3:
 
     clear A7
-    loadc A6 A1
+    move A6 A1
     add A7 A6
-    loadc A6 A2
+    move A6 A2
     add A7 A6
-    loadc A6 A3
+    move A6 A3
     add A7 A6
 
 	storei A7 IO
