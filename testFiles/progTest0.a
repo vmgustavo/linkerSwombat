@@ -8,11 +8,11 @@
 ; OP == 5 - media
 ; OP diferentes - exit
 
-;.extern _op1
-;.extern _op2
-;.extern _op3
-;.extern _op4
-;.extern _op5
+.extern _op1
+.extern _op2
+.extern _op3
+.extern _op4
+.extern _op5
 
     loadi A0 IO ; get OP
     loadi A1 IO ; get A
