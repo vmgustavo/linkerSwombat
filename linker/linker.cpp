@@ -24,7 +24,7 @@ void Linker::solve_pendencies()
 {
   for(auto p : extern_pendencies)//resolve as pendencias externas
   {
-    memory[p.first] += label_to_pos[p.second];
+    memory[p.first] = label_to_pos[p.second];
   }
 }
 
@@ -71,10 +71,10 @@ void run_module(Linker &linker, ifstream &fin)
   {
     int code1, code2;
     fin>>code1;
-    treat(code1, code2, linker.instruction_offset, linker.data_offset);//faz os offsets necessarios nas funcoes em que se faz necessario
     if(i < instr_size)
     {
       fin>>code2;
+      treat(code1, code2, linker.instruction_offset, linker.data_offset);//faz os offsets necessarios nas funcoes em que se faz necessario
       linker.memory[linker.instruction_offset + i] = code1;//coloca na posicao deslocada ja o code1 tratado
       linker.memory[linker.instruction_offset + i + 1] = code2;
       i++;
