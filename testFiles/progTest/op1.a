@@ -5,7 +5,7 @@ _op1:
     subtract A7 A6
     jmpn A7 _bMAa
     move A7 A1     ; aMAb
-    move A6 A2
+    move A6 A3
     subtract A7 A6
     jmpn A7 _printC1    ; cMAa
     jump _printA1   ; aMAc
