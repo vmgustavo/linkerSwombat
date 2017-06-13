@@ -6,16 +6,16 @@
 #include<bitset>
 #include<map>
 #include"tools.h"
-using namespace std;
+  using namespace std;
 
-class Swombat{
-  private:
+  class Swombat{
+    private:
 
-    map<string,int> index_of_registers;//cada registrador tem um indice correspondente (uso geral de 0 a 7)
-    vector<int> memory;//conteudo da memoria
-    int mem_size;//tamanho da memoria
-    map<string,int> data_to_pos;//posicao da memoria relacionada a uma alocacao em .data
-    map<string,int> label_to_pos;//posicao da memoria relacionada a um label
+      map<string,int> index_of_registers;//cada registrador tem um indice correspondente (uso geral de 0 a 7)
+      vector<int> memory;//conteudo da memoria
+      int mem_size;//tamanho da memoria
+      map<string,int> data_to_pos;//posicao da memoria relacionada a uma alocacao em .data
+      map<string,int> label_to_pos;//posicao da memoria relacionada a um label
     int last_free;//proxima posicao livre para alocacao (decrescente)
 
   public:
