@@ -9,8 +9,8 @@
     loadi A2 IO ; get B
     loadi A3 IO ; get C
 
-	loadc A6 1
-    move A7 A0
+    loadc A6 1
+	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op1
 
@@ -19,17 +19,17 @@
     subtract A6 A7
     jmpz A6 _call_op2
 
-	loadc A6 3
+    loadc A6 3
 	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op3
 
-	loadc A6 4
+    loadc A6 4
 	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op4
 
-	loadc A6 5
+    loadc A6 5
 	move A7 A0
     subtract A6 A7
     jmpz A6 _call_op5
