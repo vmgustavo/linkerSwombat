@@ -1,35 +1,35 @@
 _op2:
 
-    loadi A0 _a
-    loadi A1 _b
-    subtract A0 A1
-    jmpn A0 _aMEb
-    loadi A0 _b
-    loadi A1 _c
-    subtract A0 A1
-    jmpn A0 _printB2    ; bMEc
-    jump _printC2
+    loadc A7 A1
+    loadc A6 A2
+    subtract A7 A6
+    jmpn A7 _aMEb
+    loadc A7 A2 ; bMEa
+    loadc A6 A3
+    subtract A7 A6
+    jmpn A7 _printB2    ; bMEc
+    jump _printC2   ; cMEb
 
 _aMEb:
-    loadi A0 _a
-    loadi A1 _c
-    subtract A0 A1
-    jmpn A0 _printA2    ; aMEc
-    jump _printC2
+    loadc A7 A1
+    loadc A6 A3
+    subtract A7 A6
+    jmpn A7 _printA2    ; aMEc
+    jump _printC2   ; cMEa
 
 _printA2:
-    loadi A0 _a
-    storei A0 IO
+    loadc A7 A1
+    storei A7 IO
     jump _endOp2
 
 _printB2:
-    loadi A0 _b
-    storei A0 IO
+    loadc A7 A2
+    storei A7 IO
     jump _endOp2
 
 _printC2:
-    loadi A0 _c
-    storei A0 IO
+    loadc A7 A3
+    storei A7 IO
     jump _endOp2
 
 _endOp2:
