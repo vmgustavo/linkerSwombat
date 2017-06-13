@@ -22,7 +22,7 @@ void Linker::add_label(string &label, int position)
 
 void Linker::solve_pendencies()
 {
-  for(auto p : extern_pendencies)
+  for(auto p : extern_pendencies)//resolve as pendencias externas
   {
     memory[p.first] += label_to_pos[p.second];
   }
@@ -53,41 +53,35 @@ void run_module(Linker &linker, ifstream &fin)
   int instr_size;
   int data_size;
   char aux;
-  //while(cin.peek() == '\n' or cin.peek() == '\0' or cin.peek() == ' ' or cin.peek() == EOF) aux = getchar();
   string s;
   fin>>s;
-  cerr<<"primeira coisa "<<s<<endl;
-  while(!numerical(s))
+  while(!numerical(s))//adiciona as referencias externas
   {
     string tmp;
     int pos;
     string label;
     fin>>pos>>label;
-    cerr<<pos<<" needs "<<label<<endl;
     pos += linker.instruction_offset;
     linker.extern_reference(pos, label);
     fin>>s;
   }
   instr_size = string_to_int(s);
-  fin>>data_size;
-  cerr<<"instr size = "<<instr_size<<", data_size = "<<data_size<<endl;
+  fin>>data_size;//pega quantas instrucoes foram usadas e quantos dados foram alocados
   for(int i = 0;i < linker.mem_size;i++)
   {
     int code1, code2;
     fin>>code1;
-    treat(code1, code2, linker.instruction_offset, linker.data_offset);
+    treat(code1, code2, linker.instruction_offset, linker.data_offset);//faz os offsets necessarios nas funcoes em que se faz necessario
     if(i < instr_size)
     {
-      cerr<<"atualizando "<<i<<endl;
       fin>>code2;
-      linker.memory[linker.instruction_offset + i] = code1;
+      linker.memory[linker.instruction_offset + i] = code1;//coloca na posicao deslocada ja o code1 tratado
       linker.memory[linker.instruction_offset + i + 1] = code2;
       i++;
     }
     else if(i > linker.mem_size - 3 - data_size and i < 254)
     {
-      cerr<<"atualizando data "<<i<<endl;
-      linker.memory[i - linker.data_offset] = code1;
+      linker.memory[i - linker.data_offset] = code1;//tratando o offset dos dados
     }
   }
   string label;
@@ -95,9 +89,8 @@ void run_module(Linker &linker, ifstream &fin)
   {
     int position;
     fin>>position;
-    cerr<<label<<" directs to "<<position<<endl;
     position += linker.instruction_offset;
-    linker.add_label(label,position);
+    linker.add_label(label,position);//criando a tabela de simbolos completa
   }
   linker.instruction_offset += instr_size;
   linker.data_offset += data_size;

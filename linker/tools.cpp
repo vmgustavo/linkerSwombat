@@ -58,27 +58,27 @@ int string_to_int(string &s)
   return ret;
 }
 
-bool uses_label(int op)
+bool uses_label(int op) //retorna true para os opcodes que referenciam algum endereco de instrucao
 {
   return(op == 7 or op == 8 or op == 9 or op == 19);
 }
 
-bool uses_data(int op)
+bool uses_data(int op)//retorna true para os opcodes que referenciam algum endereco de dados
 {
   return (op == 1 or op == 2);
 }
 
-void treat_offset(int &code, int offset)
+void treat_offset(int &code, int offset)//adiciona o offset ao codigo correspondente
 {
   code += offset;
 }
-void treat(int &code1, int &code2, int instruction_offset, int data_offset)
+void treat(int &code1, int &code2, int instruction_offset, int data_offset)//adiciona offset quando necessario
 {
   if(uses_label(code1>>3))
   {
     treat_offset(code2,instruction_offset);
   }
-  else if(uses_data(code1>>3) and code2 != 254 and code2 != 255)
+  else if(uses_data(code1>>3) and code2 != 254 and code2 != 255)//caso seja uma instrucao que refenria a dado e nao seja IO, adiciona-se o offset
   {
     treat_offset(code2, -data_offset);
   }
