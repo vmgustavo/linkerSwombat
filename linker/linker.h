@@ -1,3 +1,4 @@
+#include<fstream>
 #include<iostream>
 #include<map>
 #include<vector>
@@ -25,7 +26,7 @@ class Linker{
 
 		void solve_pendencies();
 
-		void print();
+		void print(ofstream &fout);
 };
 
-void run_module(Linker &linker);
+void run_module(Linker &linker, ifstream &fin);

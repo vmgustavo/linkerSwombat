@@ -28,26 +28,26 @@ void Linker::solve_pendencies()
   }
 }
 
-void Linker::print()
+void Linker::print(ofstream &fout)
 {
 
-  cout<<"DEPTH = 256;"<<endl;
-  cout<<"WIDTH = 8;"<<endl;
-  cout<<"ADDRESS_RADIX = HEX;"<<endl;
-  cout<<"DATA_RADIX = BIN;"<<endl;
-  cout<<"CONTENT"<<endl<<"BEGIN"<<endl<<endl;
+  fout<<"DEPTH = 256;"<<endl;
+  fout<<"WIDTH = 8;"<<endl;
+  fout<<"ADDRESS_RADIX = HEX;"<<endl;
+  fout<<"DATA_RADIX = BIN;"<<endl;
+  fout<<"CONTENT"<<endl<<"BEGIN"<<endl<<endl;
   for(int i = 0;i < mem_size;i++)
   {
     int v = memory[i];
-    cout<<to_hex(i)<<" : ";
+    fout<<to_hex(i)<<" : ";
     bitset<8> to_print(v);
-    cout<<to_print<<";";
-    cout<<" --"<<endl;
+    fout<<to_print<<";";
+    fout<<" --"<<endl;
   }
-  cout<<"END;"<<endl;
+  fout<<"END;"<<endl;
 }
 
-void run_module(Linker &linker)
+void run_module(Linker &linker, ifstream &fin)
 {
   cerr<<"running module"<<endl;
   int instr_size;
@@ -55,34 +55,34 @@ void run_module(Linker &linker)
   char aux;
   //while(cin.peek() == '\n' or cin.peek() == '\0' or cin.peek() == ' ' or cin.peek() == EOF) aux = getchar();
   string s;
-  cin>>s;
+  fin>>s;
   cerr<<"primeira coisa "<<s<<endl;
   while(!numerical(s))
   {
     string tmp;
     int pos;
     string label;
-    cin>>pos>>label;
+    fin>>pos>>label;
     cerr<<pos<<" needs "<<label<<endl;
     pos += linker.instruction_offset;
     linker.extern_reference(pos, label);
-    cin>>s;
+    fin>>s;
   }
   instr_size = string_to_int(s);
-  cin>>data_size;
+  fin>>data_size;
   cerr<<"instr size = "<<instr_size<<", data_size = "<<data_size<<endl;
   for(int i = 0;i < linker.mem_size;i++)
   {
     int code1, code2;
-    cin>>code1;
+    fin>>code1;
     treat(code1, code2, linker.instruction_offset, linker.data_offset);
     if(i < instr_size)
     {
       cerr<<"atualizando "<<i<<endl;
-      cin>>code2;
-      i++;
+      fin>>code2;
       linker.memory[linker.instruction_offset + i] = code1;
       linker.memory[linker.instruction_offset + i + 1] = code2;
+      i++;
     }
     else if(i > linker.mem_size - 3 - data_size and i < 254)
     {
@@ -91,10 +91,10 @@ void run_module(Linker &linker)
     }
   }
   string label;
-  while(cin>>label)
+  while(fin>>label)
   {
     int position;
-    cin>>position;
+    fin>>position;
     cerr<<label<<" directs to "<<position<<endl;
     position += linker.instruction_offset;
     linker.add_label(label,position);
@@ -102,8 +102,3 @@ void run_module(Linker &linker)
   linker.instruction_offset += instr_size;
   linker.data_offset += data_size;
 }
-
-
-
-
-

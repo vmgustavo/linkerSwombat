@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include<map>
 #include<vector>
 #include<stdlib.h>
@@ -12,14 +13,18 @@ int main(int argc, char* argv[])
 {
   string output_file = argv[1];
   output_file += ".mif";
-  freopen(output_file.c_str(),"w",stdout);
+  ofstream fout;
+  fout.open(output_file.c_str());
+  //freopen(output_file.c_str(),"w",stdout);
 
   Linker linker;
   linker.get_started();
 
   for(int i = 2;i < argc;i++)
   {
-    freopen(argv[i],"r",stdin);
+    ifstream fin;
+    fin.open(argv[i]);
+    //freopen(argv[i],"r",stdin);
     cerr<<"abrindo "<<argv[i]<<endl;
     /*cerr<<"running module"<<endl;
     int instr_size;
@@ -67,10 +72,11 @@ int main(int argc, char* argv[])
     }
     linker.instruction_offset += instr_size;
     linker.data_offset += data_size;*/
-    run_module(linker);
+    run_module(linker, fin);
+    fin.close();
   }
   linker.solve_pendencies();
-  linker.print();
+  linker.print(fout);
   return 0;
 }
 
