@@ -49,9 +49,11 @@ void Linker::print()
 
 void run_module(Linker &linker)
 {
+  cerr<<"running module"<<endl;
   int instr_size;
   int data_size;
-  cin>>instr_size>>data_size;
+  char aux;
+  while(cin.peek() == '\n' or cin.peek() == '\0' or cin.peek() == ' ' or cin.peek() == EOF) aux = getchar();
   while(cin.peek() == 'e')
   {
     string tmp;
@@ -59,17 +61,33 @@ void run_module(Linker &linker)
     int pos;
     string label;
     cin>>pos>>label;
+    getline(cin,tmp);
     cerr<<pos<<" needs "<<label<<endl;
     pos += linker.instruction_offset;
     linker.extern_reference(pos, label);
   }
-  for(int i = 0;i < linker.mem_size;i += 2)
+  char c = cin.peek();
+  cerr<<"o peek era "<<c<<endl;
+  cin>>instr_size>>data_size;
+  cerr<<"instr size = "<<instr_size<<", data_size = "<<data_size<<endl;
+  for(int i = 0;i < linker.mem_size;i++)
   {
     int code1, code2;
-    cin>>code1>>code2;
+    cin>>code1;
     treat(code1, code2, linker.instruction_offset, linker.data_offset);
-    linker.memory[linker.instruction_offset + i] = code1;
-    linker.memory[linker.instruction_offset + i + 1] = code2;
+    if(i < instr_size)
+    {
+      cerr<<"atualizando "<<i<<endl;
+      cin>>code2;
+      i++;
+      linker.memory[linker.instruction_offset + i] = code1;
+      linker.memory[linker.instruction_offset + i + 1] = code2;
+    }
+    else if(i > linker.mem_size - 3 - data_size and i < 254)
+    {
+      cerr<<"atualizando data "<<i<<endl;
+      linker.memory[i - linker.data_offset] = code1;
+    }
   }
   string label;
   while(cin>>label)
