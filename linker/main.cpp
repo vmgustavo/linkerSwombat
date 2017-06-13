@@ -68,7 +68,6 @@ int main(int argc, char* argv[])
     linker.instruction_offset += instr_size;
     linker.data_offset += data_size;*/
     run_module(linker);
-    assert(cin.eof());
   }
   linker.solve_pendencies();
   linker.print();

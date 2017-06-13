@@ -53,22 +53,23 @@ void run_module(Linker &linker)
   int instr_size;
   int data_size;
   char aux;
-  while(cin.peek() == '\n' or cin.peek() == '\0' or cin.peek() == ' ' or cin.peek() == EOF) aux = getchar();
-  while(cin.peek() == 'e')
+  //while(cin.peek() == '\n' or cin.peek() == '\0' or cin.peek() == ' ' or cin.peek() == EOF) aux = getchar();
+  string s;
+  cin>>s;
+  cerr<<"primeira coisa "<<s<<endl;
+  while(!numerical(s))
   {
     string tmp;
-    cin>>tmp;
     int pos;
     string label;
     cin>>pos>>label;
-    getline(cin,tmp);
     cerr<<pos<<" needs "<<label<<endl;
     pos += linker.instruction_offset;
     linker.extern_reference(pos, label);
+    cin>>s;
   }
-  char c = cin.peek();
-  cerr<<"o peek era "<<c<<endl;
-  cin>>instr_size>>data_size;
+  instr_size = string_to_int(s);
+  cin>>data_size;
   cerr<<"instr size = "<<instr_size<<", data_size = "<<data_size<<endl;
   for(int i = 0;i < linker.mem_size;i++)
   {

@@ -1,14 +1,13 @@
-_add:
-push A7
-push A6
+_add: push A7
+  push A6
 
-move A7 A0
-move A6 A1
+  move A7 A0
+  move A6 A1
 
-add A7 A6
+  add A7 A6
 
-storei A7 IO
+  storei A7 IO
 
-pop A6
-pop A7
+  pop A6
+  pop A7
 return
